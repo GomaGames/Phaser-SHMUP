@@ -18,20 +18,28 @@
   };
 
   const handlePlayerMovement = _ => {
+    let movingH = Math.sqrt(2);
+    let movingV = Math.sqrt(2);
+    if( cursors.up.isDown || cursors.down.isDown){
+      movingH = 1; // slow down diagonal movement
+    }
+    if( cursors.left.isDown || cursors.right.isDown){
+      movingV = 1; // slow down diagonal movement
+    }
     switch( true ){
       case cursors.left.isDown:
-        player.x -= player.moveSpeed;
+        player.x -= player.moveSpeed * movingH;
         break;
       case cursors.right.isDown:
-        player.x += player.moveSpeed;
+        player.x += player.moveSpeed * movingH;
         break;
     }
     switch( true ){
       case cursors.down.isDown:
-        player.y += player.moveSpeed;
+        player.y += player.moveSpeed * movingV;
         break;
       case cursors.up.isDown:
-        player.y -= player.moveSpeed;
+        player.y -= player.moveSpeed * movingV;
         break;
     }
   };
