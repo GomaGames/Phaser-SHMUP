@@ -5,9 +5,12 @@
   const GFX = 'gfx';
   const INITIAL_MOVESPEED = 4;
   const PLAYER_BULLET_SPEED = 6;
+  const ENEMY_SPAWN_FREQ = 100; // higher is less frequent
+  const ENEMY_SPEED = 4.5;
   let cursors;
   let player;
   let playerBullets;
+  let enemies;
 
   const preload = _ => {
     game.load.spritesheet(GFX, 'assets/shmup-spritesheet-140x56-28x28-tile.png', 28, 28);
@@ -25,6 +28,7 @@
     player = game.add.sprite(100, 100, GFX, 8);
     player.moveSpeed = INITIAL_MOVESPEED;
     playerBullets = game.add.group();
+    enemies = game.add.group();
   };
 
   const handlePlayerMovement = _ => {
@@ -58,6 +62,17 @@
     playerBullets.children.forEach( bullet => bullet.y -= PLAYER_BULLET_SPEED );
   };
 
+  const handleEnemyActions = _ => {
+    enemies.children.forEach( enemy => enemy.y += ENEMY_SPEED );
+  };
+
+  const randomlySpawnEnemy = _ => {
+    if( Math.floor(Math.random()*ENEMY_SPAWN_FREQ) === 0 ){
+      let randomX = Math.floor( Math.random()*GAME_WIDTH );
+      enemies.add( game.add.sprite(randomX, -24, GFX, 0) );
+    }
+  };
+
   const cleanup = _ => {
     playerBullets.children
       .filter( bullet => bullet.y < 0 )
@@ -67,6 +82,8 @@
   const update = _ => {
     handlePlayerMovement();
     handleBulletAnimations();
+    handleEnemyActions();
+    randomlySpawnEnemy();
 
     cleanup();
   };
