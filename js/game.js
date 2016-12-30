@@ -4,6 +4,7 @@
   const GAME_CONTAINER_ID = 'game';
   const GFX = 'gfx';
   const INITIAL_MOVESPEED = 4;
+  const PLAYER_BULLET_SPEED = 6;
   let cursors;
   let player;
   let playerBullets;
@@ -53,8 +54,13 @@
     }
   };
 
+  const handleBulletAnimations = _ => {
+    playerBullets.children.forEach( bullet => bullet.y -= PLAYER_BULLET_SPEED );
+  };
+
   const update = _ => {
     handlePlayerMovement();
+    handleBulletAnimations();
   };
 
   const game = new Phaser.Game(GAME_WIDTH, GAME_HEIGHT, Phaser.AUTO, GAME_CONTAINER_ID, { preload, create, update });
