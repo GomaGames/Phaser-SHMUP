@@ -8,6 +8,7 @@
   const ENEMY_SPAWN_FREQ = 100; // higher is less frequent
   const ENEMY_SPEED = 4.5;
   const ENEMY_FIRE_FREQ = 30; // higher is less frequent
+  const ENEMY_BULLET_ACCEL = 100;
   let cursors;
   let player;
   let playerBullets;
@@ -80,6 +81,9 @@
 
   const handleBulletAnimations = _ => {
     playerBullets.children.forEach( bullet => bullet.y -= PLAYER_BULLET_SPEED );
+    enemyBullets.children.forEach( bullet =>  {
+      game.physics.arcade.accelerateToObject(bullet, player, ENEMY_BULLET_ACCEL);
+    });
   };
 
   const randomEnemyFire = enemy => {
