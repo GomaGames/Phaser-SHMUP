@@ -31,6 +31,11 @@
     enemies = game.add.group();
   };
 
+  const gameOver = _ => {
+    game.state.destroy();
+    game.add.text(90, 200, 'YOUR HEAD ASPLODE', { fill: '#FFFFFF' });
+  };
+
   const handlePlayerMovement = _ => {
     let movingH = Math.sqrt(2);
     let movingV = Math.sqrt(2);
@@ -56,6 +61,10 @@
         player.y -= player.moveSpeed * movingV;
         break;
     }
+  };
+
+  const handlePlayerHit = _ => {
+    gameOver();
   };
 
   const handleBulletAnimations = _ => {
@@ -88,6 +97,16 @@
       playerBullets.children
         .filter( bullet => bullet.overlap(enemies) )
         .forEach( removeBullet );
+
+      enemiesHit.forEach( destroyEnemy );
+    }
+
+    // check if enemies hit the player
+    enemiesHit = enemies.children
+      .filter( enemy => enemy.overlap(player) );
+
+    if( enemiesHit.length > 0 ){
+      handlePlayerHit();
 
       enemiesHit.forEach( destroyEnemy );
     }
