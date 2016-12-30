@@ -58,9 +58,17 @@
     playerBullets.children.forEach( bullet => bullet.y -= PLAYER_BULLET_SPEED );
   };
 
+  const cleanup = _ => {
+    playerBullets.children
+      .filter( bullet => bullet.y < 0 )
+      .forEach( bullet => bullet.destroy() );
+  };
+
   const update = _ => {
     handlePlayerMovement();
     handleBulletAnimations();
+
+    cleanup();
   };
 
   const game = new Phaser.Game(GAME_WIDTH, GAME_HEIGHT, Phaser.AUTO, GAME_CONTAINER_ID, { preload, create, update });
