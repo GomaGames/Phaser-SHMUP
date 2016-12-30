@@ -13,13 +13,14 @@
   };
 
   const handlePlayerFire = _ => {
-    console.log("fire");
+    playerBullets.add( game.add.sprite(player.x, player.y, GFX, 7) );
   };
 
   const create = _ => {
     cursors = game.input.keyboard.createCursorKeys();
     cursors.fire = game.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
     cursors.fire.onUp.add( handlePlayerFire );
+
     player = game.add.sprite(100, 100, GFX, 8);
     player.moveSpeed = INITIAL_MOVESPEED;
     playerBullets = game.add.group();
