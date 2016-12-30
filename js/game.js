@@ -11,6 +11,7 @@
   let player;
   let playerBullets;
   let enemies;
+  let enemyBullets;
 
   const preload = _ => {
     game.load.spritesheet(GFX, 'assets/shmup-spritesheet-140x56-28x28-tile.png', 28, 28);
@@ -29,6 +30,7 @@
     player.moveSpeed = INITIAL_MOVESPEED;
     playerBullets = game.add.group();
     enemies = game.add.group();
+    enemyBullets = game.add.group();
   };
 
   const gameOver = _ => {
