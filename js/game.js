@@ -7,6 +7,7 @@
   const PLAYER_BULLET_SPEED = 6;
   const ENEMY_SPAWN_FREQ = 100; // higher is less frequent
   const ENEMY_SPEED = 4.5;
+  const ENEMY_FIRE_FREQ = 30; // higher is less frequent
   let cursors;
   let player;
   let playerBullets;
@@ -81,8 +82,18 @@
     playerBullets.children.forEach( bullet => bullet.y -= PLAYER_BULLET_SPEED );
   };
 
+  const randomEnemyFire = enemy => {
+    if( Math.floor(Math.random()*ENEMY_FIRE_FREQ) === 0 ){
+      let enemyBullet = game.add.sprite(enemy.x, enemy.y, GFX, 9);
+      enemyBullet.checkWorldBounds = true;
+      enemyBullet.outOfBoundsKill = true;
+      enemyBullets.add( enemyBullet );
+    }
+  };
+
   const handleEnemyActions = _ => {
     enemies.children.forEach( enemy => enemy.y += ENEMY_SPEED );
+    enemies.children.forEach( enemy => randomEnemyFire(enemy) );
   };
 
   const randomlySpawnEnemy = _ => {
