@@ -22,6 +22,8 @@
   };
 
   const create = _ => {
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+
     cursors = game.input.keyboard.createCursorKeys();
     cursors.fire = game.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
     cursors.fire.onUp.add( handlePlayerFire );
@@ -31,6 +33,7 @@
     playerBullets = game.add.group();
     enemies = game.add.group();
     enemyBullets = game.add.group();
+    enemyBullets.enableBody = true;
   };
 
   const gameOver = _ => {
