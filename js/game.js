@@ -6,6 +6,7 @@
   const INITIAL_MOVESPEED = 4;
   let cursors;
   let player;
+  let playerBullets;
 
   const preload = _ => {
     game.load.spritesheet(GFX, 'assets/shmup-spritesheet-140x56-28x28-tile.png', 28, 28);
@@ -15,6 +16,7 @@
     cursors = game.input.keyboard.createCursorKeys();
     player = game.add.sprite(100, 100, GFX, 8);
     player.moveSpeed = INITIAL_MOVESPEED;
+    playerBullets = game.add.group();
   };
 
   const handlePlayerMovement = _ => {
