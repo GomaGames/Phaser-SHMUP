@@ -34,6 +34,11 @@
   const gameOver = _ => {
     game.state.destroy();
     game.add.text(90, 200, 'YOUR HEAD ASPLODE', { fill: '#FFFFFF' });
+    let playAgain = game.add.text(120, 300, 'Play Again', { fill: '#FFFFFF' });
+    playAgain.inputEnabled = true;
+    playAgain.events.onInputUp.add(_ => {
+      window.location.reload();
+    });
   };
 
   const handlePlayerMovement = _ => {
