@@ -153,6 +153,9 @@
     enemies.children
       .filter( enemy => enemy.y > GAME_HEIGHT || !enemy.alive )
       .forEach( enemy => enemy.destroy() );
+    enemyBullets.children
+      .filter( bullet => !bullet.alive )
+      .forEach( bullet => bullet.destroy() );
   };
 
   const update = _ => {
