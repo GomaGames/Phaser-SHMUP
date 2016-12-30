@@ -135,6 +135,15 @@
 
       enemiesHit.forEach( destroyEnemy );
     }
+
+    // check if enemy bullets hit the player
+    let enemyBulletsLanded = enemyBullets.children
+      .filter( bullet => bullet.overlap(player) );
+
+    if( enemyBulletsLanded.length > 0 ){
+      handlePlayerHit(); // count as one hit
+      enemyBulletsLanded.forEach( removeBullet );
+    }
   };
 
   const cleanup = _ => {
